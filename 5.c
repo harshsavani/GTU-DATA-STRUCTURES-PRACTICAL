@@ -1,57 +1,87 @@
-#include<stdio.h>
+#include <stdio.h>
+#define MAX 20
 #include<stdlib.h>
-#define n 5
+int queue_array[MAX];
+int rear = - 1;
+int front = - 1;
+void insert()
+{
+      int add_item;
+      if (rear == MAX - 1)
+            printf("Queue Overflow \n");
+      else
+      {
+            if (front == - 1)
+                  /*If queue is initially empty */
+                  front = 0;
+            printf("\nEnter element : ");
+            scanf("%d", &add_item);
+            printf("\n%d is inserted in queue\n",add_item);
+            printf("------------------------------\n");
+            rear = rear + 1;
+            queue_array[rear] = add_item;
+      }
+}
+void delete()
+{
+      if (front == - 1 || front > rear)
+      {
+            printf("Queue Underflow \n");
+            return ;
+      }
+      else
+      {
+            printf("\nElement deleted from queue is : %d\n", queue_array[front]);
+            printf("------------------------------\n");
+            front = front + 1;
+      }
+}
+void display()
+{
+      int i;
+      if (front == - 1)
+            printf("Queue is empty \n");
+      else
+      {
+            printf("\nQueue is : ");
+            for (i = front; i <= rear; i++)
+                  printf("%d ", queue_array[i]);
+            printf("\n------------------------------");
+            printf("\n");
+      }
+}
 int main()
 {
-    int queue[n],ch=1,front=0,rear=0,i,j=1,x=n;
-    printf("\n--------------------\n");
-    printf("Queue using Array");
-    printf("\n--------------------\n");
-    printf("\n1.Insertion \n2.Deletion \n3.Display \n4.Exit\n");
-    printf("\n--------------------\n");
-    while(ch)
-    {
-        printf("\nEnter the Choice:");
-        scanf("%d",&ch);
-        switch(ch)
-        {
-        case 1:
-            if(rear==x)
-                printf("\n Queue is Full");
-            else
+      printf("Perform operations on queue\n");
+      printf("------------------------------\n");
+      printf("\tMenu");
+      printf("\n------------------------------\n");
+      printf("1. Insert element \n");
+      printf("2. Delete element \n");
+      printf("3. Display queue\n");
+      printf("4. Exit\n");
+      printf("------------------------------\n");
+      int ch;
+      while (1)
+      {
+            printf("Choose operation : ");
+            scanf("%d", &ch);
+            switch(ch)
             {
-                printf("\n Enter no %d:",j++);
-                scanf("%d",&queue[rear++]);
+                  case 1:
+                        insert();
+                        break;
+                  case 2:
+                        delete();
+                        break;
+                  case 3:
+                        display();
+                        break;
+                  case 4:
+                        exit(1);
+                  default:
+                        printf("Invalid operation \n");
             }
-            break;
-        case 2:
-            if(front==rear)
-            {
-                printf("\n Queue is empty");
-            }
-            else
-            {
-                printf("\n Deleted Element is %d",queue[front++]);
-                x++;
-            }
-            break;
-        case 3:
-            printf("\n Queue Elements are:\n ");
-            if(front==rear)
-                printf("\n Queue is Empty");
-            else
-            {
-                for(i=front; i<rear; i++)
-                {
-                    printf("%d",queue[i]);
-                    printf("\n");
-                }
-                break;
-        case 4:
-              exit(0);
-              default:
-                printf("Wrong Choice: please see the options");
-            }
-        }
-    }
+      }
+      return 0;
 }
