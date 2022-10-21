@@ -1,101 +1,54 @@
-#include<stdlib.h>  
-#include<stdio.h>      
-#define max 5        
-int front=-1,rear=-1;       // global variable
-int CQueue[max];          
-void insert();
-int delete();
-void display();
+#include<stdio.h>
+#define n 5
 int main()
 {
-    int w,no;         
-    for(;;)
+    int queue[n],ch=1,front=0,rear=0,i,j=1,x=n;
+    printf("Queue using Array");
+    printf("\n1.Insertion \n2.Deletion \n3.Display \n4.Exit");
+    while(ch)
     {
-        printf("\n1. Insert");
-        printf("\n2. Delete");
-        printf("\n3. Display");
-        printf("\n4. EXIT");
-        printf("\nEnter what you want :");
-        scanf("%d",&w);
-        switch(w)
+        printf("\nEnter the Choice:");
+        scanf("%d",&ch);
+        switch(ch)
         {
         case 1:
-            insert();
+            if(rear==x)
+                printf("\n Queue is Full");
+            else
+            {
+                printf("\n Enter no %d:",j++);
+                scanf("%d",&queue[rear++]);
+            }
             break;
         case 2:
-            no=delete();
+            if(front==rear)
+            {
+                printf("\n Queue is empty");
+            }
+            else
+            {
+                printf("\n Deleted Element is %d",queue[front++]);
+                x++;
+            }
             break;
         case 3:
-            display();
-            break;
-        case 4:
-            exit(1);
-        default:
-            printf("\nInvalid Choice !!\n");
+            printf("\nQueue Elements are:\n ");
+            if(front==rear)
+                printf("\n Queue is Empty");
+            else
+            {
+                for(i=front; i<rear; i++)
+                {
+                    printf("%d",queue[i]);
+                    printf("\n");
+                }
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf("Wrong Choice: please see the options");
+            }
         }
     }
-}
-void insert()
-{
-    int no;
-    if((front ==0 && rear == max-1) || front == rear+1)
-    {
-        printf("\nCircular Queue Is Full !\n");
-        return;
-    }
-    printf("\nEnter a number to Insert :");
-    scanf("%d",&no);
-    if(front==-1)
-        front=front+1;
-    if(rear==max-1)
-        rear=0;
-    else rear=rear+1;
-        CQueue[rear]=no;
-}
-int delete()
-{
-    int e;
-    if(front==-1)
-    {
-        printf("\nThe Circular Queue is Empty !!\n");
-        
-    }
-    e=CQueue[front];
-    if(front==max-1)
-        front=0;
-    else if(front==rear)
-    {
-        front=-1;
-        rear=-1;
-    }
-    else front=front+1;
-    printf("\n%d was deleted !\n",e);
-    return e;
-}
-void display()
-{
-    int i;
-    if(front==-1)
-    {
-        printf("\nThe Circular Queue is Empty ! Nothing To Display !!\n");
-        return;
-    }
-    i=front;
-    if(front<=rear)
-    {
-        printf("\n\n");
-        while(i<=rear)
-            printf("%d ",CQueue[i++]);
-        printf("\n");
-    }
-    else
-    {
-        printf("\n\n");
-        while(i<=max-1)
-           printf("%d ",CQueue[i++]) ;
-        i=0;
-        while(i<=rear)
-            printf("%d ",CQueue[i++]);
-        printf("\n");
-    }
+    return 0;
 }
